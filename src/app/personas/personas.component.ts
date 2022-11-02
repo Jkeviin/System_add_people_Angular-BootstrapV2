@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './personas.component.html',
   styleUrls: ['./personas.component.css']
 })
+
 export class PersonasComponent implements OnInit {
 
   personas: Persona[] = [];
@@ -19,17 +20,14 @@ export class PersonasComponent implements OnInit {
               private route:ActivatedRoute
               ){}
 
-    ngOnInit(): void {
-
-      this.personasService.obtenerPersonas().subscribe(
-        (response: any)=>{
-          for(let key in response){
-            this.personas = response[key]
-          }
-          this.personasService.setPersonas(this.personas);
-        }
-      )
-    }
+  ngOnInit(): void {
+    this.personasService.obtenerPersonas().subscribe(
+      (response: any)=>{
+        this.personas = Object.values(response);
+        this.personasService.setPersonas(this.personas);
+      }
+    )
+  }
 
     irAgregar(){
       console.log("nos vamos a agregar ");
